@@ -23,7 +23,7 @@ class ForMakersController extends Controller
                 // IS REGISTERED
                 return new JsonResponse(true);
             } else {
-                return new JsonResponse("Bad Password");
+                return new JsonResponse(false);
             }
         } else {
 
@@ -38,7 +38,7 @@ class ForMakersController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return new JsonResponse("User created");
+            return new JsonResponse(true);
         }
 
     }
