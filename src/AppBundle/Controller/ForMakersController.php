@@ -15,27 +15,39 @@ class ForMakersController extends Controller
      */
     public function connectAction(Request $request, $login, $password)
     {
-        $em = $this->getDoctrine()->getRepository("AppBundle:User");
-        if($em->checkIfUserExist($login, $password)){
-            // IS REGISTERED
-            return new JsonResponse(true);
+        $em = $this->getDoctrine();
+
+        if($this->checkIfLoginExist($login)) {
+            //Check password
+            if($em->getRepository("AppBundle:User")->checkIfUserExist($login, $password)){
+                // IS REGISTERED
+                return new JsonResponse(true);
+            } else {
+                return new JsonResponse("Bad Password");
+            }
         } else {
-            // NOT REGISTERED
-//            echo "// NOT REGISTERED";
-            return new JsonResponse(false);
+
+            $date = new \DateTime();
+            // Create a user
+            $user = new User();
+            $user->setLogin($login)
+                ->setPassword($password)
+                ->setInscriptionDate($date);
+
+            $em = $em->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return new JsonResponse("User created");
         }
 
-
-        return new JsonResponse($user);
     }
-//
-//    /**
-//     * @Route("/", name="add_user")
-//     */
-//    public function addUser(Request $request)
-//    {
-//        $user = new User();
-//
-//
-//    }
+
+    private function checkIfLoginExist($login)
+    {
+        $em = $this->getDoctrine()->getRepository("AppBundle:User");
+        return $em->findOneBy([
+            "login" => $login
+        ]);
+    }
 }
