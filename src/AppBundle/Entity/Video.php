@@ -25,6 +25,7 @@ class Video
      * @var string
      *
      * @ORM\Column(name="id_groupe", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\VideoGroup", mappedBy="id")
      */
     private $idGroupe;
 
