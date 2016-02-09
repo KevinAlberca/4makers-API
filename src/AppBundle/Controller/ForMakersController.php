@@ -60,7 +60,6 @@ class ForMakersController extends Controller
             "id"=>"DESC",
         ]);
 
-//        var_dump($videos);
         $allVideos = [];
 
         foreach ($videos as $video) {
