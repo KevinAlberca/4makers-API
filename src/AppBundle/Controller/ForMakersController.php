@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ForMakersController extends Controller
 {
     /**
-     * @Route("/connect/{login}/{password}", name="homepage")
+     * @Route("/connect/{login}/{password}")
      */
     public function connectAction($login, $password)
     {
@@ -39,6 +39,7 @@ class ForMakersController extends Controller
             return new JsonResponse(true);
         }
 
+        return false;
     }
 
     /**
