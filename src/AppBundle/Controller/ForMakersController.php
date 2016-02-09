@@ -13,7 +13,7 @@ class ForMakersController extends Controller
     /**
      * @Route("/connect/{login}/{password}", name="homepage")
      */
-    public function connectAction(Request $request, $login, $password)
+    public function connectAction($login, $password)
     {
         $em = $this->getDoctrine();
 
@@ -26,9 +26,7 @@ class ForMakersController extends Controller
                 return new JsonResponse(false);
             }
         } else {
-
             $date = new \DateTime();
-            // Create a user
             $user = new User();
             $user->setLogin($login)
                 ->setPassword($password)
@@ -42,6 +40,42 @@ class ForMakersController extends Controller
         }
 
     }
+
+    /**
+     * @Route("/addVideo/{name}/{video}", name="homepage")
+     */
+    public function addVideoAction($name, $video)
+    {
+
+        return new JsonResponse($name, $video);
+    }
+
+    /**
+     * @Route("/getVideos", name="get_videos")
+     */
+    public function getVideosAction()
+    {
+        $em = $this->getDoctrine()->getManager()->getRepository("AppBundle:Video");
+        $videos = $em->findBy([],[
+            "id"=>"DESC",
+        ]);
+
+//        var_dump($videos);
+        $allVideos = [];
+
+        foreach ($videos as $video) {
+            $allVideos[] = [
+                "id" => $video->id,
+                "id_groupe" => $video->idGroupe,
+                "creator_name" => $video->creatorName,
+                "link" => $video->link,
+                "publish_date" => $video->addDate
+            ];
+        }
+
+        return new JsonResponse($allVideos);
+    }
+
 
     private function checkIfLoginExist($login)
     {
