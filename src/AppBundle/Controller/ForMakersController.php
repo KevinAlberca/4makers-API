@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Entity\Video;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -47,8 +48,20 @@ class ForMakersController extends Controller
      */
     public function addVideoAction($name, $video)
     {
+        $date = new \DateTime();
 
-        return new JsonResponse($name, $video);
+        $em = $this->getDoctrine()->getManager();
+
+        $newVideo = new Video();
+        $newVideo->setIdGroupe(1)
+            ->setAddDate($date)
+            ->setCreatorName($name)
+            ->setLink("http://awh.fr:4444/videos/".$video);
+
+        $em->persist($newVideo);
+        $em->flush();
+
+        return new JsonResponse(true);
     }
 
     /**
@@ -75,7 +88,6 @@ class ForMakersController extends Controller
 
         return new JsonResponse($allVideos);
     }
-
 
     private function checkIfLoginExist($login)
     {
