@@ -19,7 +19,7 @@ class Video
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
      * @var string
@@ -27,28 +27,28 @@ class Video
      * @ORM\Column(name="id_groupe", type="string", length=255)
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\VideoGroup", mappedBy="id")
      */
-    private $idGroupe;
+    public $idGroupe;
 
     /**
      * @var string
      *
      * @ORM\Column(name="creator_name", type="string", length=255)
      */
-    private $creatorName;
+    public $creatorName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="link", type="string", length=255)
      */
-    private $link;
+    public $link;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="add_date", type="datetime")
      */
-    private $addDate;
+    public $addDate;
 
 
     /**
