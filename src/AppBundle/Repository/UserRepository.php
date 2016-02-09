@@ -21,10 +21,8 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere("u.password = :password")
                 ->setParameter("password", $password)
 
-//            ->getQuery()->getResult(Query::HYDRATE_ARRAY);
         ->getQuery()->getResult();
 
         return $req;
-
     }
 }
