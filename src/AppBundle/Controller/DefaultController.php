@@ -9,7 +9,7 @@
  class DefaultController extends Controller
  {
      /**
-      * @Route("/", name="homepage")
+      * @Route("/")
       */
      public function indexAction(Request $request)
      {
